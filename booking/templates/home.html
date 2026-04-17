@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% block extra_css %}
+
+		<link rel="shortcut icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="{% static 'assets/css/all.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/meanmenu.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+	{% endblock  %}
+
+	<!-- hero area -->
+	<div class="hero-area hero-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 offset-lg-2 text-center">
+					<div class="hero-text">
+						<div class="hero-text-tablecell">
+							<p class="subtitle">Your Game &  Your Ground</p>
+							<h1>Book Your Perfect Match</h1>
+							<div class="hero-btns">
+								<a href="{% url 'cart' %}" class="boxed-btn">book now</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end hero area -->
+
+<!-- product section -->
+<div class="product-section mt-150 mb-150">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="section-title">	
+					<h3><span class="orange-text">Our</span> Grounds</h3>
+					<p>Select your best cricket ground easily.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row justify-content-center">
+
+			{% for post in posts %}
+			<div class="col-lg-4 col-md-6 text-center">
+				<div class="single-product-item">
+					
+					<div class="product-image">
+						{% if post.image %}
+						<img src="{{ post.image.url }}" alt="">
+						{% else %}
+						<img src="{% static 'assets/img/products/product-img-1.jpg' %}" alt="">
+						{% endif %}
+					</div>
+					
+
+					<h3>{{ post.title }}</h3>
+					<p>{{ post.description }}</p>
+
+					<p class="product-price">
+						<span>Admin</span>
+					</p>
+
+					<a href="{% url 'cart' %}" class="cart-btn">
+						<i class="fas fa-calendar-check"></i> Book Now
+					</a>
+				</div>
+			</div>
+			{% empty %}
+			<p>No grounds available</p>
+			{% endfor %}
+
+		</div>
+	</div>
+</div>
+<!-- end product section -->
+
+
+
+
+
+	<!-- featured section -->
+	<div class="feature-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-7">
+					<div class="featured-text">
+						<h2 class="pb-3">Ground <span class="orange-text">Facility</span></h2>
+						<div class="row">
+							<div class="col-lg-6 col-md-6 mb-4 mb-md-5">
+								<div class="list-box d-flex">
+									<div class="list-icon">
+										<i class="fas fa-shipping-fast"></i>
+									</div>
+									<div class="content">
+										<h3>Online Booking</h3>
+										<p>Easily book cricket grounds anytime with a smooth and fast online system. No need to visit physically.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
+								<div class="list-box d-flex">
+									<div class="list-icon">
+										<i class="fas fa-money-bill-alt"></i>
+									</div>
+									<div class="content">
+										<h3>Best Pricing</h3>
+										<p>Affordable and transparent pricing with no hidden charges. Choose slots based on your budget.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
+								<div class="list-box d-flex">
+									<div class="list-icon">
+										<i class="fas fa-briefcase"></i>
+									</div>
+									<div class="content">
+										<h3>Custom Time Slots</h3>
+										<p>Flexible booking options—select your preferred time slots for matches, practice, or tournaments.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6">
+								<div class="list-box d-flex">
+									<div class="list-icon">
+										<i class="fas fa-sync-alt"></i>
+									</div>
+									<div class="content">
+										<h3>Confirmation & Refund</h3>
+										<p>Get instant booking confirmation and quick refunds in case of cancellation.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end featured section -->
+	
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
+						Distributed By - <a href="https://themewagon.com/">Themewagon</a>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+{% endblock  %}
+
+{% block extra_js %}
+	{% load static %}
+
+		<script src="{% static 'assets/js/jquery-1.11.3.min.js' %}"></script>
+		<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.countdown.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.isotope-3.0.6.min.js' %}"></script>
+		<script src="{% static 'assets/js/waypoints.js' %}"></script>
+		<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.meanmenu.min.js' %}"></script>
+		<script src="{% static 'assets/js/sticker.js' %}"></script>
+		<script src="{% static 'assets/js/main.js' %}"></script>
+	{% endblock %}

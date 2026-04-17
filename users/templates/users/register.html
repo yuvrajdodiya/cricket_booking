@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Register | Cricket Booking</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+        url('https://images.unsplash.com/photo-1593341646782-e0b495cff86d?auto=format&fit=crop&w=1600&q=80')
+        center/cover no-repeat;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    /* LEFT SIDE */
+    .left {
+      flex: 1;
+      background: linear-gradient(135deg, #0f2027, #2c5364);
+      color: white;
+      padding: 50px 40px;
+    }
+
+    .left h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    .left p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.1);
+      padding: 12px 15px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    /* RIGHT SIDE */
+    .right {
+      flex: 1;
+      background: white;
+      padding: 45px 35px;
+    }
+
+    .right h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .right p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    form p {
+      margin: 0;
+    }
+
+    form label {
+      font-weight: bold;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    form input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background: #f5f5f5;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    form input:focus {
+      border-color: #16a34a;
+      background: #fff;
+    }
+
+    .btn {
+      margin-top: 10px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #16a34a, #0f766e);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .bottom {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .bottom a {
+      color: #16a34a;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .bottom a:hover {
+      text-decoration: underline;
+    }
+
+    .errorlist {
+      color: red;
+      font-size: 13px;
+      list-style: none;
+    }
+
+    @media(max-width: 900px){
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- LEFT SIDE -->
+  <div class="left">
+    <h1>Join Cricket Booking</h1>
+    <p>
+      Create your account and start booking cricket grounds easily.
+      Fast, secure and modern experience.
+    </p>
+
+    <div class="feature">🏏 Easy Booking</div>
+    <div class="feature">🔒 Secure Account</div>
+    <div class="feature">⚡ Instant Access</div>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="right">
+    <h2>Create Account</h2>
+    <p>Register to get started</p>
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn">Register</button>
+    </form>
+
+    <div class="bottom">
+      Already have account?
+      <a href="{% url 'user_login' %}">Login</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

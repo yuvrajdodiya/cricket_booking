@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+	{% block extra_css %}
+		<link rel="shortcut icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="{% static 'assets/css/all.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/meanmenu.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+		<style>
+			.success-message {
+				margin-bottom: 20px;
+				padding: 16px 18px;
+				border-radius: 8px;
+				background: #e9f9ee;
+				color: #17663a;
+				font-weight: 600;
+			}
+
+			.booking-detail-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			.booking-detail-list li {
+				padding: 10px 0;
+				border-bottom: 1px solid #f0f0f0;
+				color: #555;
+			}
+
+			.booking-detail-list strong {
+				color: #051922;
+				display: inline-block;
+				min-width: 120px;
+			}
+		</style>
+	{% endblock  %}
+	
+
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Enjoy and happy</p>
+						<h1>Conform you tickit</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- check out section -->
+	<div class="checkout-section mt-150 mb-150">
+		<div class="container">
+			{% if booking_success %}
+			<div class="success-message">
+				Booking confirmed successfully. Booking ID: #{{ booking_id }}
+			</div>
+			{% endif %}
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="checkout-accordion-wrap">
+						<div class="accordion" id="accordionExample">
+						  <div class="card single-accordion">
+						    <div class="card-header" id="headingOne">
+						      <h5 class="mb-0">
+						        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						          Conform booking
+						        </button>
+						      </h5>
+						    </div>
+
+						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+						      <div class="card-body">
+						        <div class="billing-address-form">
+						        	<form method="POST" action="{% url 'checkout' %}" id="booking-form">
+						        		{% csrf_token %}
+						        		<input type="hidden" name="ground" value="{{ selected_ground_id }}">
+						        		<input type="hidden" name="ticket_type_id" value="{{ selected_ticket_type_id }}">
+						        		<input type="hidden" name="quantity" value="{{ selected_quantity }}">
+						        		<p><input type="text" name="first_name" placeholder="First Name" value="{{ first_name }}"></p>
+						        		<p><input type="text" name="last_name" placeholder="Last Name" value="{{ last_name }}"></p>
+						        		<p><input type="email" name="email" placeholder="Email" value="{{ email }}"></p>
+						        		<p><textarea name="bill" id="bill" cols="30" rows="10" placeholder="Special note for your booking"></textarea></p>
+						        	</form>
+						        </div>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="card single-accordion">
+						    <div class="card-header" id="headingTwo">
+						      <h5 class="mb-0">
+						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						          Shipping Address
+						        </button>
+						      </h5>
+						    </div>
+						    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+						      <div class="card-body">
+						        <div class="shipping-address-form">
+						        	<ul class="booking-detail-list">
+						        		<li><strong>Ground:</strong> {{ selected_ground_name }}</li>
+						        		<li><strong>Ticket Type:</strong> {{ selected_ticket_type }}</li>
+						        		<li><strong>Tickets:</strong> {{ selected_quantity }}</li>
+						        		<li><strong>Price:</strong> Rs. {{ selected_price }}</li>
+						        	</ul>
+						        </div>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="card single-accordion">
+						    <div class="card-header" id="headingThree">
+						      <h5 class="mb-0">
+						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						          Card Details
+						        </button>
+						      </h5>
+						    </div>
+						    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+						      <div class="card-body">
+						        <div class="card-details">
+						        	<p>Review your ticket details on the right side and then place your booking.</p>
+						        </div>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="order-details-wrap">
+						<table class="order-details">
+							<thead>
+								<tr>
+									<th>Ticket Types</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody class="order-details-body">
+								<tr>
+									<td>Ground</td>
+									<td>{{ selected_ground_name }}</td>
+								</tr>
+								<tr>
+									<td>{{ selected_ticket_type }}</td>
+									<td>Rs. {{ selected_price }}</td>
+								</tr>
+								<tr>
+									<td>Quantity</td>
+									<td>{{ selected_quantity }}</td>
+								</tr>
+							</tbody>
+							<tbody class="checkout-details">
+								<tr>
+									<td>Price Per Ticket</td>
+									<td>Rs. {{ selected_price }}</td>
+								</tr>
+								<tr>
+									<td>Total</td>
+									<td>Rs. {{ selected_total }}</td>
+								</tr>
+							</tbody>
+						</table>
+						<button type="submit" form="booking-form" class="boxed-btn">Place Order</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end check out section -->
+
+	
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
+						Distributed By - <a href="https://themewagon.com/">Themewagon</a>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+{% endblock %}
+{% block extra_js %}
+	<script src="{% static 'assets/js/jquery-1.11.3.min.js' %}"></script>
+		<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.countdown.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.isotope-3.0.6.min.js' %}"></script>
+		<script src="{% static 'assets/js/waypoints.js' %}"></script>
+		<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.meanmenu.min.js' %}"></script>
+		<script src="{% static 'assets/js/sticker.js' %}"></script>
+		<script src="{% static 'assets/js/main.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,439 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% block extra_css %}
+
+<link rel="shortcut icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'assets/css/all.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/meanmenu.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+<style>
+	.select-ground-box {
+		background: #ffffff;
+		padding: 35px 30px;
+		border-radius: 10px;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+	}
+
+	.select-ground-box h3 {
+		margin-bottom: 15px;
+	}
+
+	.select-ground-box p {
+		margin-bottom: 18px;
+		line-height: 1.8;
+	}
+
+	.ground-select {
+		width: 100%;
+		height: 54px;
+		border: 1px solid #ddd;
+		padding: 0 14px;
+		border-radius: 6px;
+		margin-bottom: 18px;
+	}
+
+	.helper-note {
+		font-size: 14px;
+		color: #666;
+		margin-top: 12px;
+	}
+
+	.ticket-booking-box {
+		margin-top: 30px;
+		background: #ffffff;
+		padding: 35px 30px;
+		border-radius: 10px;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+	}
+
+	.ticket-booking-box h3 {
+		margin-bottom: 12px;
+	}
+
+	.ticket-booking-box p {
+		margin-bottom: 18px;
+		line-height: 1.8;
+	}
+
+	.ticket-table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	.ticket-table th,
+	.ticket-table td {
+		padding: 14px 12px;
+		border-bottom: 1px solid #e8e8e8;
+		text-align: left;
+	}
+
+	.ticket-table th {
+		background: #f8f8f8;
+		font-weight: 700;
+	}
+
+	.ticket-table select,
+	.ticket-table input {
+		width: 100%;
+		height: 46px;
+		border: 1px solid #ddd;
+		border-radius: 6px;
+		padding: 0 12px;
+	}
+
+	.ticket-table input[type="number"] {
+		max-width: 110px;
+	}
+
+	.summary-highlight {
+		color: #f28123;
+		font-weight: 700;
+	}
+
+	.summary-note {
+		margin-top: 15px;
+		font-size: 14px;
+		color: #666;
+		line-height: 1.7;
+	}
+
+	@media only screen and (max-width: 767px) {
+		.ticket-table,
+		.ticket-table tbody,
+		.ticket-table tr,
+		.ticket-table td,
+		.ticket-table th {
+			display: block;
+			width: 100%;
+		}
+
+		.ticket-table thead {
+			display: none;
+		}
+
+		.ticket-table tr {
+			margin-bottom: 16px;
+			border: 1px solid #ececec;
+			border-radius: 8px;
+			overflow: hidden;
+		}
+
+		.ticket-table td {
+			padding: 12px;
+		}
+
+		.ticket-table td::before {
+			content: attr(data-label);
+			display: block;
+			font-weight: 700;
+			margin-bottom: 8px;
+		}
+	}
+</style>
+
+{% endblock %}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Your Game & Your Ground</p>
+						<h1>Book Your Slot</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+<!-- select ground section-->
+<div class="cart-section mt-150 mb-150">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-lg-8 col-md-12">
+				<div class="select-ground-box">
+					<h3>Select Your Ground</h3>
+					<p>Choose one ground from the grounds added by admin.</p>
+					{% if posts %}
+					<select class="ground-select" name="ground">
+						<option value="" data-name="Select Ground">Select Ground</option>
+						{% for post in posts %}
+						<option value="{{ post.id }}" data-name="{{ post.title }}">{{ post.title }}</option>
+						{% endfor %}
+					</select>
+					<p class="helper-note">Only ground names are shown here. Full ground details are hidden.</p>
+					<div class="ticket-booking-box">
+						<h3>Ticket Booking</h3>
+						{% if ticket_types %}
+						<p>Select your ticket type, choose how many tickets you want, and review the total before checkout.</p>
+						<table class="ticket-table">
+							<thead>
+								<tr>
+									<th>Ground Selection</th>
+									<th>Ticket Type</th>
+									<th>Price</th>
+									<th>Tickets</th>
+									<th>Subtotal</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td data-label="Ground Selection">
+										<select id="ticket-ground-select">
+											<option value="" data-name="Select Ground">Select Ground</option>
+											{% for post in posts %}
+											<option value="{{ post.id }}" data-name="{{ post.title }}">{{ post.title }}</option>
+											{% endfor %}
+										</select>
+									</td>
+									<td data-label="Ticket Type">
+										<select id="ticket-type-select">
+											{% for ticket_type in ticket_types %}
+											<option value="{{ ticket_type.id }}" data-price="{{ ticket_type.price }}">{{ ticket_type.name }}</option>
+											{% endfor %}
+										</select>
+									</td>
+									<td data-label="Price">
+										<span id="ticket-price">
+											{% for ticket_type in ticket_types %}{% if forloop.first %}Rs. {{ ticket_type.price }}{% endif %}{% endfor %}
+										</span>
+									</td>
+									<td data-label="Tickets">
+										<input type="number" id="ticket-quantity" min="1" max="10" value="1">
+									</td>
+									<td data-label="Subtotal">
+										<span id="ticket-subtotal">
+											{% for ticket_type in ticket_types %}{% if forloop.first %}Rs. {{ ticket_type.price }}{% endif %}{% endfor %}
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p class="helper-note">Maximum 10 tickets can be selected for one booking.</p>
+						{% else %}
+						<p>No ticket types available right now. Please ask admin to add ticket pricing.</p>
+						{% endif %}
+					</div>
+					{% else %}
+					<p>No grounds available right now.</p>
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="total-section">
+					<h3>Booking Summary</h3>
+
+					<table class="total-table">
+						<tr>
+							<td>Total Grounds:</td>
+							<td>{{ posts|length }}</td>
+						</tr>
+						<tr>
+							<td>Booking Status:</td>
+							<td>Active</td>
+						</tr>
+						<tr>
+							<td>Ground:</td>
+							<td id="summary-ground">Select one ground</td>
+						</tr>
+						<tr>
+							<td>Ticket Type:</td>
+							<td id="summary-ticket-type">
+								{% for ticket_type in ticket_types %}{% if forloop.first %}{{ ticket_type.name }}{% endif %}{% empty %}Not available{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>Tickets:</td>
+							<td id="summary-ticket-count">{% if ticket_types %}1{% else %}0{% endif %}</td>
+						</tr>
+						<tr>
+							<td>Price Per Ticket:</td>
+							<td id="summary-ticket-price">
+								{% for ticket_type in ticket_types %}{% if forloop.first %}Rs. {{ ticket_type.price }}{% endif %}{% empty %}Rs. 0{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td><strong>Total:</strong></td>
+							<td><strong class="summary-highlight" id="summary-total">
+								{% for ticket_type in ticket_types %}{% if forloop.first %}Rs. {{ ticket_type.price }}{% endif %}{% empty %}Rs. 0{% endfor %}
+							</strong></td>
+						</tr>
+					</table>
+					<p class="summary-note">The summary counts all selected tickets and shows the final total amount for your booking.</p>
+
+					<a href="{% url 'checkout' %}" class="book-btn" id="continue-booking-btn">Continue Booking</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- end of selection ground section -->
+
+<!-- FORM -->
+
+	<!-- logo carousel -->
+	<div class="logo-carousel-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="logo-carousel-inner">
+						<div class="single-logo-item">
+							<img src="assets/img/company-logos/1.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="assets/img/company-logos/2.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="assets/img/company-logos/3.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="assets/img/company-logos/4.png" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img src="assets/img/company-logos/5.png" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
+						Distributed By - <a href="https://themewagon.com/">Themewagon</a>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+{% endblock  %}
+{% block extra_js %}
+
+	<script src="{% static 'assets/js/jquery-1.11.3.min.js' %}"></script>
+	<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.countdown.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.isotope-3.0.6.min.js' %}"></script>
+	<script src="{% static 'assets/js/waypoints.js' %}"></script>
+	<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.meanmenu.min.js' %}"></script>
+	<script src="{% static 'assets/js/sticker.js' %}"></script>
+	<script src="{% static 'assets/js/main.js' %}"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var groundSelect = document.querySelector('.ground-select');
+			var ticketGroundSelect = document.getElementById('ticket-ground-select');
+			var ticketTypeSelect = document.getElementById('ticket-type-select');
+			var quantityInput = document.getElementById('ticket-quantity');
+			var ticketPrice = document.getElementById('ticket-price');
+			var ticketSubtotal = document.getElementById('ticket-subtotal');
+			var summaryGround = document.getElementById('summary-ground');
+			var summaryTicketType = document.getElementById('summary-ticket-type');
+			var summaryTicketCount = document.getElementById('summary-ticket-count');
+			var summaryTicketPrice = document.getElementById('summary-ticket-price');
+			var summaryTotal = document.getElementById('summary-total');
+			var continueBookingBtn = document.getElementById('continue-booking-btn');
+
+			if (!groundSelect || !ticketGroundSelect || !ticketTypeSelect || !quantityInput) {
+				return;
+			}
+
+			function formatCurrency(value) {
+				return 'Rs. ' + value;
+			}
+
+			function syncGroundSelection(source, target) {
+				target.value = source.value;
+				updateSummary();
+			}
+
+			function getSelectedGroundName() {
+				var selectedOption = ticketGroundSelect.options[ticketGroundSelect.selectedIndex];
+				return selectedOption ? selectedOption.getAttribute('data-name') : 'Select one ground';
+			}
+
+			function updateSummary() {
+				var selectedTicket = ticketTypeSelect.options[ticketTypeSelect.selectedIndex];
+				var price = parseInt(selectedTicket.getAttribute('data-price'), 10);
+				var quantity = parseInt(quantityInput.value, 10) || 1;
+
+				if (quantity < 1) {
+					quantity = 1;
+				}
+
+				if (quantity > 10) {
+					quantity = 10;
+				}
+
+				quantityInput.value = quantity;
+
+				var subtotal = price * quantity;
+				var ticketTypeName = selectedTicket.text;
+				var groundName = getSelectedGroundName();
+
+				ticketPrice.textContent = formatCurrency(price);
+				ticketSubtotal.textContent = formatCurrency(subtotal);
+				summaryGround.textContent = groundName || 'Select one ground';
+				summaryTicketType.textContent = ticketTypeName;
+				summaryTicketCount.textContent = quantity;
+				summaryTicketPrice.textContent = formatCurrency(price);
+				summaryTotal.textContent = formatCurrency(subtotal);
+
+				if (continueBookingBtn) {
+					var checkoutUrl = new URL(continueBookingBtn.href, window.location.origin);
+					checkoutUrl.searchParams.set('ground', ticketGroundSelect.value || '');
+					checkoutUrl.searchParams.set('ground_name', groundName || 'Not selected');
+					checkoutUrl.searchParams.set('ticket_type_id', selectedTicket.value);
+					checkoutUrl.searchParams.set('ticket_type', ticketTypeName);
+					checkoutUrl.searchParams.set('quantity', quantity);
+					checkoutUrl.searchParams.set('price', price);
+					checkoutUrl.searchParams.set('total', subtotal);
+					continueBookingBtn.href = checkoutUrl.toString();
+				}
+			}
+
+			groundSelect.addEventListener('change', function () {
+				syncGroundSelection(groundSelect, ticketGroundSelect);
+			});
+
+			ticketGroundSelect.addEventListener('change', function () {
+				syncGroundSelection(ticketGroundSelect, groundSelect);
+			});
+
+			ticketTypeSelect.addEventListener('change', updateSummary);
+			quantityInput.addEventListener('input', updateSummary);
+
+			updateSummary();
+		});
+	</script>
+{% endblock  %}
