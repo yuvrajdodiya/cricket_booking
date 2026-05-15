@@ -25,6 +25,11 @@ def user_login_view(request):
              pass
 
     if request.method == 'POST':
+
+
+
+
+        
         form = LoginForm(request.POST)
         if form.is_valid():
             user = authenticate(
