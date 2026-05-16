@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-w!uhn@#@fsn740(9kmrb52khrc7lmrzhvan#$3g_8a!b0i^2so
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["cricket-booking.onrender.com"]
 
 
 # Application definition
