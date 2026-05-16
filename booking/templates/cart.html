@@ -170,7 +170,7 @@
 					<select class="ground-select" name="ground">
 						<option value="" data-name="Select Ground">Select Ground</option>
 						{% for post in posts %}
-						<option value="{{ post.id }}" data-name="{{ post.title }}">{{ post.title }}</option>
+						<option value="{{ post.id }}" data-name="{{ post.title }}" {% if selected_ground and selected_ground.id == post.id %}selected{% endif %}>{{ post.title }}</option>
 						{% endfor %}
 					</select>
 					<p class="helper-note">Only ground names are shown here. Full ground details are hidden.</p>
@@ -194,7 +194,7 @@
 										<select id="ticket-ground-select">
 											<option value="" data-name="Select Ground">Select Ground</option>
 											{% for post in posts %}
-											<option value="{{ post.id }}" data-name="{{ post.title }}">{{ post.title }}</option>
+											<option value="{{ post.id }}" data-name="{{ post.title }}" {% if selected_ground and selected_ground.id == post.id %}selected{% endif %}>{{ post.title }}</option>
 											{% endfor %}
 										</select>
 									</td>

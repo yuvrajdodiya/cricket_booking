@@ -70,7 +70,7 @@
 						<span>Admin</span>
 					</p>
 
-					<a href="{% url 'cart' %}" class="cart-btn">
+					<a href="{% url 'cart' %}?ground={{ post.id }}" class="cart-btn">
 						<i class="fas fa-calendar-check"></i> Book Now
 					</a>
 				</div>
